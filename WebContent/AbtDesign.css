@@ -1,0 +1,27 @@
+p
+ {
+    
+    background-color: lightgrey;
+    width: 300px;
+    padding: 25px;
+    border: 5px solid black;
+    margin: 25px;
+    margin-up:50px;
+    
+}
+
+body
+{
+	background-image:url("11.jpg"), url("13.jpg");
+    background-repeat: no-repeat, no-repeat;
+    background-position: right top, left;
+    margin-right: 200px;
+    background-size:600px 500px, 300px 300px;
+}
+
+.left {
+    float: left;
+    width: 300px;
+    border: 3px solid;
+    padding: 10px;
+}

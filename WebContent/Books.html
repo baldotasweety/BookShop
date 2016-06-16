@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>books</title>
+<style>
+div.img {
+    border: 1px solid #ccc;
+}
+
+div.img:hover {
+    border: 1px solid #777;
+}
+
+div.img img {
+    width: 100%;
+    height: auto;
+}
+
+div.desc {
+    padding: 15px;
+    text-align: center;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.responsive {
+    padding: 0 6px;
+    float: left;
+    width: 24.99999%;
+}
+
+@media only screen and (max-width: 700px){
+    .responsive {
+        width: 49.99999%;
+        margin: 6px 0;
+    }
+}
+
+@media only screen and (max-width: 500px){
+    .responsive {
+        width: 100%;
+    }
+}
+
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+</style>
+</head>
+<body>
+
+
+<div class="responsive">
+  <div class="img">
+    <a target="_blank" href="22.jpg">
+      <img src="22.jpg" width="300" height="200">
+    </a>
+    <div class="desc">Like reading novels? This is it<br>Cost=200rs</div>
+  </div>
+</div>
+
+
+<div class="responsive">
+  <div class="img">
+    <a target="_blank" href="housegirl1.jpg">
+      <img src="housegirl1.jpg"  width="600" height="400">
+    </a>
+    <div class="desc">Story of a 17 yr old girl<br>Cost=350rs </div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="img">
+    <a target="_blank" href="121.jpg">
+      <img src="121.jpg" width="600" height="400">
+    </a>
+    <div class="desc">A great saint of India<br>Cost= 300rs</div>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="img">
+    <a target="_blank" href="123.jpg">
+      <img src="123.jpg"  width="600" height="400">
+    </a>
+    <div class="desc">Read till last.. Suspense<br>Cost= 375rs</div>
+  </div>
+</div>
+
+<div class="clearfix"></div>
+</body>
+</html>

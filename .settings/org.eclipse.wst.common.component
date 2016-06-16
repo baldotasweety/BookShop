@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+<<<<<<< HEAD
     <wb-module deploy-name="Cart">
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
@@ -7,5 +8,12 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
         <property name="context-root" value="Cart"/>
         <property name="java-output-path" value="/Cart/target/classes"/>
+=======
+    <wb-module deploy-name="OnlineBooks">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <property name="context-root" value="OnlineBooks"/>
+        <property name="java-output-path" value="/OnlineBooks/build/classes"/>
+>>>>>>> 995f649048bc67c5393168a025df96da979a5511
     </wb-module>
 </project-modules>
