@@ -1,0 +1,101 @@
+
+    
+body {
+	 background-image:url("books-wallpaper-hd.jpg");
+    
+	font-family: georgia;
+	margin-left: 65px;
+	margin-top: 40px;
+	margin-right: 50px;
+	margin-bottom: 20px;
+	color:gray;
+}
+
+input[type='text'] {
+	border: 2px solid #456879;
+	border-radius: 10px;
+	height: 22px;
+	font-size: 11px;
+	width: 230px;
+	margin-left:70px;
+	font-color:black;
+	
+}
+	
+input[type='date']
+{
+	border: 2px solid #456879;
+	border-radius: 10px;
+	height: 22px;
+	font-size: 11px;
+	width: 230px;
+	margin-left:50px;
+}	
+
+input[type='email']
+{
+	border: 2px solid #456879;
+	border-radius: 10px;
+	height: 22px;
+	font-size: 11px;
+	width: 230px;
+	margin-left:20px;
+}	
+
+textarea
+{
+	border: 2px solid #456879;
+	border-radius: 10px;
+	height: 22px;
+	font-size: 11px;
+	width: 230px;
+	margin-left:55px;
+}	
+
+input[type='text'] {
+	border: 2px solid #456879;
+	border-radius: 10px;
+	height: 22px;
+	font-size: 11px;
+	width: 230px;
+	margin-left:80px;
+	font-color:black;
+	
+}
+
+input[type='password'] {
+	border: 2px solid #456879;
+	border-radius: 10px;
+	height: 22px;
+	font-size: 11px;
+	width: 230px;
+	margin-left:20px;
+	font-color:black;
+	
+}
+
+input[type='password'] {
+	border: 2px solid #456879;
+	border-radius: 10px;
+	height: 22px;
+	font-size: 11px;
+	width: 230px;
+	margin-left:5px;
+	font-color:black;
+	
+}
+
+input[type='button'] {
+
+	
+	height: 22px;
+	font-size: 11px;
+	width: 80px;
+	margin-left:50px;
+	color:black;
+	
+}
+p{
+	color:black;
+}
+</style>
