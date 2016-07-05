@@ -44,32 +44,38 @@ public class SupplierController {
  	public String addSupplier(@ModelAttribute("supplier") Supplier supplier ,Model model){
  		model.addAttribute("supplier" , new Supplier());
  		model.addAttribute("supplierList", this.supplierDAO.list());
+ 	    System.out.println("id is"+supplier.getSup_id());
  		supplierDAO.saveOrUpdate(supplier);
  		return "supplierList";
  	}
  	
 	@RequestMapping("supplier/remove/{sup_id}")
-    public String removeSupplier(@PathVariable("sup_id") int id, ModelMap model) throws Exception{
+    public String removeSupplier(@PathVariable("sup_id") String id,@ModelAttribute("supplier") Supplier supplier , ModelMap model) throws Exception{
 		
        try {
 		supplierDAO.delete(id);
 		model.addAttribute("message","Successfully Removed");
+		model.addAttribute("supplier" , new Supplier());
+		model.addAttribute("supplierList", this.supplierDAO.list());
+	
 	} catch (Exception e) {
 		model.addAttribute("message",e.getMessage());
 		e.printStackTrace();
 	}
-    
+        
         return "supplierList";
     }
  	
  	
  	@RequestMapping(value="supplier/edit/{sup_id}" )
 	 	
- 	public String editSupplier(@PathVariable("sup_id") int id, Supplier supplier , Model model){
+ 	public String editSupplier(@PathVariable("sup_id") String id, Supplier supplier , Model model){
  		System.out.println("editsupplier");
  		model.addAttribute("supplier" ,new Supplier());
  		model.addAttribute("supplier", this.supplierDAO.get(id));
- 		model.addAttribute("supplierList", this.supplierDAO.list());
+ 		model.addAttribute("listsuppliers", this.supplierDAO.list());
+ 	//	model.addAttribute("supplierList", this.supplierDAO.list());
+ 	
  		return "supplierList";
  	}	 	
 }

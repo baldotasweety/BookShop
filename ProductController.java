@@ -71,21 +71,23 @@ public class ProductController {
 	}
 
 	@RequestMapping("product/remove/{id}")
-	public String removeProduct(@PathVariable("id") int id, ModelMap model) throws Exception {
+	public String removeProduct(@PathVariable("id") String id, ModelMap model) throws Exception {
 
 		try {
+			System.out.println("in product controller delete");
 			productDAO.delete(id);
 			model.addAttribute("message", "Successfully Added");
 		} catch (Exception e) {
 			model.addAttribute("message", e.getMessage());
 			e.printStackTrace();
 		}
+		
 		// redirectAttrs.addFlashAttribute(arg0, arg1)
 		return "redirect:/product";
 	}
 
 	@RequestMapping("product/edit/{id}")
-	public String editProduct(@PathVariable("id") int id, Model model) {
+	public String editProduct(@PathVariable("id") String id, Model model) {
 		System.out.println("editProduct");
 		model.addAttribute("product", this.productDAO.get(id));
 		model.addAttribute("listProducts", this.productDAO.list());
