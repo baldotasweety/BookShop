@@ -76,7 +76,7 @@ public class ProductController {
 		try {
 			System.out.println("in product controller delete");
 			productDAO.delete(id);
-			model.addAttribute("message", "Successfully Added");
+			model.addAttribute("message", "Successfully Removed");
 		} catch (Exception e) {
 			model.addAttribute("message", e.getMessage());
 			e.printStackTrace();
