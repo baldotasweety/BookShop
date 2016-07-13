@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+ 
+   <!--   <http auto-config="true">
+        <intercept-url pattern="/welcome*" access="ROLE_USER,ROLE_ADMIN" />
+        <http-basic/>
+    </http>-->
+    
+    
+     <http pattern="/Landing" security="none"/>
+     <!--<http pattern="/user/**" security="none"/> -->
+     <http>
+    	 <intercept-url pattern="/**" access="ROLE_USER,ROLE_ADMIN" />
+    	 <form-login login-page="/Theme"  default-target-url="/welcome" authentication-failure-url="/Theme"
+    	 authentication-success-handler-ref="authenticationSuccessHandler"/>
+    	 <logout logout-success-url="/logout"/>
+    </http>
+ 
+ 	<beans:bean id="authenticationSuccessHandler"
+        class="com.spring.bookcart.controller.UrlAuthenticationSuccessHandler" />
+         
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider>
+        <!-- <password-encoder hash="sha-256"/> -->
+           <!--  <user-service>
+                <user name="sweety" password="123" authorities="ROLE_USER" />
+            </user-service> -->
+            
+            <jdbc-user-service data-source-ref="securityDataSource" 
+            				authorities-by-username-query="select username, AUTHORITY from user u, user_roles ur where u.Admin=ur.admin and username=?"
+            				users-by-username-query="select username, password, 'TRUE' from user where username=?" /> 
+        </authentication-provider>
+    </authentication-manager>
+ 
+</beans:beans>

@@ -56,7 +56,7 @@ public class UrlAuthenticationSuccessHandler implements AuthenticationSuccessHan
 	 
 	        if (isUser) {
 	        	System.out.println("inside successHandler User");
-	            return "/login";
+	            return "/Product";
 	            
 	        } else if (isAdmin) {
 	        	System.out.println("inside successHandler Admin");

@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import com.spring.bookcart.dao.*;
 import com.spring.bookcart.model.User;
+import com.spring.bookcart.model.User_Details;
 
 @Controller
 public class UserController {
@@ -19,83 +21,68 @@ public class UserController {
 	@Autowired
 	UserDAO userDAO;
 	
-	@RequestMapping("/isValid")
-	public ModelAndView showMessage(@RequestParam(value = "username")String username,
-			@RequestParam(value = "password") String password){
+	/*@RequestMapping("/isValid")
+	public String showMessage(@RequestParam(value = "username")String username,
+			@RequestParam(value = "password") String password, @ModelAttribute User user){
 		
-		ModelAndView mv;
+		
 		System.out.println("in user controller");
 		
-		String message;
+	
 	
 		if(userDAO.isValid(username,password)){
-			message = "Valid Credentials";
-			mv = new ModelAndView("adminHome");
-			mv.addObject("message",message);
+			System.out.println("Valid Credentials");
+			user = userDAO.getByName(username);
+			System.out.println(user.isAdmin());
+			if (user.isAdmin()==true){
+		        return "adminHome";
+		      }
+			else{
+		      return "Aboutus";
+		    }
 			
-			
-		}
+         }
 		else
 		{
-			message = "Invalid Credentials";
-			 mv = new ModelAndView("Theme");
-			 mv.addObject("message",message);
+			System.out.println("Invalid Credentials");
+			 return "Theme";
 		}
+		
+	        
 	
+	}*/
 	
-	//mv = new ModelAndView("success");
-	mv.addObject("message",message);
-	mv.addObject("name",username);
-	
-	return mv;
-	
-	}
-	
-	  @RequestMapping(value = "/login", method = RequestMethod.POST)
-	    public String doLogin(@Valid User user, BindingResult result) {
-		  if (result.hasErrors()) {
-	            return "Login";
-	        }
-	 
+	 /* @RequestMapping(value = "/login", method = RequestMethod.POST)
+	    public String doLogin(  @ModelAttribute User userr) {
+		  System.out.println("admin"+userr.isAdmin());
+	      if (userr.isAdmin()==true){
 	        return "adminHome";
-	    }
+	      }
+	      return "Aboutus";
+	    }*/
 		  
 	        
 	    
 
-	/*@RequestMapping("/Login")
-	public String getLogin()
-	{
-		return "Theme";
-	}*/
-	/*@RequestMapping("/welcome")
-	public String basic(){
-		return "welcome";
-	}*/
-	/*@RequestMapping("/")
-	public String getLanding()
-	{
-		System.out.println("theme page called..");
-		return "Theme";
-	}*/
-	@RequestMapping("/Success")
+	@RequestMapping("/Login")
 	public String getuser(){
-		return "Success";
+		return "";
 	}
 	@RequestMapping("/adminHome")
 	public String getAdmin()
 	{
 		return "adminHome";
 	}
-	@RequestMapping("/Theme")
+	@RequestMapping("/Landing")
 	public String getHome()
 	{
-		return "Theme";
+		System.out.println("user controller /theme");
+		return "Landing";
 	}
 	@RequestMapping("/welcome")
 	public String getguest()
 	{
-		return "welcome";
+		return "Login";
 	}
 	/*@RequestMapping("/contact")
 	public String getContact()
@@ -113,17 +100,30 @@ public class UserController {
 		return "signup";
 	}
 	*/
-	@RequestMapping("/OK")
-	public String signUp()
-	{
 	
+	@RequestMapping("/OK")
+	public String signUp(@ModelAttribute User_Details user_Details, @RequestParam("username") String username, @RequestParam("pass") String password, @RequestParam("email") String email, @RequestParam("city") String city )
+	{
+	    System.out.println("sdgjkd");
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-		User user = (User) context.getBean("user"); 
-		user.setName("username");
-	    user.setEmail("email");
-		user.setCity("city");
+        context.scan("com.spring.bookcart");
+        context.refresh();
+        
+        System.out.println("username="+username);
+        System.out.println("password="+password);
+        System.out.println("user details name="+user_Details.getEmail());
+		User_Details user_details = (User_Details) context.getBean("user_Details"); 
 		
+		User user = (User) context.getBean("user");
+		
+		
+		user.setUsername(username);
+		user.setPassword(password);
+	    user_details.setEmail(email);
+		user_details.setCity(city);
 		userDAO.saveOrUpdate(user);
+
+		userDAO.saveOrUpdate(user_Details);
 
 		return "Theme";
 		
