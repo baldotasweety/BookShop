@@ -64,9 +64,9 @@ public class UserController {
 	        
 	    
 
-	@RequestMapping("/Login")
+	@RequestMapping("/logout")
 	public String getuser(){
-		return "";
+		return "logout";
 	}
 	@RequestMapping("/adminHome")
 	public String getAdmin()
@@ -76,25 +76,25 @@ public class UserController {
 	@RequestMapping("/Landing")
 	public String getHome()
 	{
-		System.out.println("user controller /theme");
+		System.out.println("user controller");
 		return "Landing";
 	}
 	@RequestMapping("/welcome")
 	public String getguest()
 	{
-		return "Login";
+		return "Landing";
 	}
-	/*@RequestMapping("/contact")
-	public String getContact()
+	@RequestMapping("/ProDemo")
+	public String getPro()
 	{
-		return "";
+		return "ProDemo";
 	}
-	@RequestMapping("/aboutus")
+	@RequestMapping("/upload")
 	public String geAboutUs()
 	{
-		return "aboutus";
+		return "upload";
 	}
-	@RequestMapping("/signup")
+	/*@RequestMapping("/signup")
 	public String getSignup()
 	{
 		return "signup";
@@ -125,7 +125,7 @@ public class UserController {
 
 		userDAO.saveOrUpdate(user_Details);
 
-		return "Theme";
+		return "Landing";
 		
 
 }
