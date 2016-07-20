@@ -31,7 +31,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
        
-        <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+        <li><a href="form"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
         <li><a href="logout"><span class="glyphicons glyphicons-power"></span> Logout</a></li>
       </ul>
     </div>
@@ -42,7 +42,7 @@
     <div class="col-sm-4">
       <div class="panel panel-primary">
         <div class="panel-heading">Novels</div>
-        <div class="panel-body"><img src="resources/nov.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
+        <div class="panel-body"><a href="Novels"><img src="resources/nov.jpg" class="img-responsive" style="width:100%" alt="Image"></a></div>
         <div class="panel-footer">Novelsss..</div>
       </div>
     </div>
