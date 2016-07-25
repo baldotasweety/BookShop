@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:webflow="http://www.springframework.org/schema/webflow-config"
+   xmlns:mvc="http://www.springframework.org/schema/mvc"
+   xmlns:tx="http://www.springframework.org/schema/tx"
+   xsi:schemaLocation="
+   http://www.springframework.org/schema/mvc
+   http://www.springframework.org/schema/mvc/spring-mvc.xsd
+   
+   http://www.springframework.org/schema/beans     
+   http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/context 
+   http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/tx 
+   http://www.springframework.org/schema/context/spring-tx.xsd
+    http://www.springframework.org/schema/webflow-config
+        http://www.springframework.org/schema/webflow-config/spring-webflow-config.xsd">
+ 
+ <mvc:annotation-driven/>
+
+   <context:component-scan base-package="com.spring.bookcart.*" />
+   
+    <mvc:resources mapping="/resources/**" location="/WEB-INF/resources/"/>   
+   <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      <property name="prefix">
+      <value>/WEB-INF/view/</value>
+      </property>
+      
+      <property name="suffix">
+      <value>.jsp</value>
+      </property>
+      
+   </bean>
+   
+   <!-- <context:property-placeholder location="classpath:database.properties"/> -->
+   <!-- <tx:annotation-driven transaction-manager="hibernateTransactionManager"/>
+   -->
+   
+   <bean id="securityDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="org.h2.Driver"/>
+    <property name="url" value="jdbc:h2:tcp://localhost/~/test"/>
+    <property name="username" value="sa"/>
+    <property name="password" value=""/>      
+</bean> 
+
+<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+		
+		
+		
+		
+ <mvc:interceptors>
+		<bean id="webContentInterceptor"
+			class="org.springframework.web.servlet.mvc.WebContentInterceptor">
+			<property name="cacheSeconds" value="0" />
+			<property name="useExpiresHeader" value="true" />
+			<property name="useCacheControlHeader" value="true" />
+			<property name="useCacheControlNoStore" value="true" />
+		</bean>
+	</mvc:interceptors>
+
+
+
+
+	<!-- Spring WebFlow -->
+<webflow:flow-executor id="flowExecutor" />
+<webflow:flow-registry id="flowRegistry" flow-builder-services="flowBuilderServices" base-path="/WEB-INF">
+		<webflow:flow-location id="purchase" path="/purchaseFlow.xml" />
+</webflow:flow-registry>
+<webflow:flow-builder-services id="flowBuilderServices"	view-factory-creator="viewFactoryCreator" />
+<bean id="viewFactoryCreator"
+		class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
+		<property name="viewResolvers">
+			<list>
+				<ref bean="viewResolver" />
+			</list>
+		</property>
+</bean>
+
+<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+	<property name="flowExecutor" ref="flowExecutor" />
+</bean>
+
+<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+	<property name="flowRegistry" ref="flowRegistry" />
+	<property name="order" value="0" />
+</bean>
+   <!-- <bean id="sessionFactory" class="org.springframework.orm.hibernate4.annotation.AnnotationSessionFactoryBean">
+    <property name="dataSource" ref="securityDataSource"/>
+    <property name="hibernateProperties">
+      <props>
+      <prop key= "hibernate.dialect">${hibernate.dialect}</prop>
+       <prop key= "hibernate.show_sql">${hibernate.show_sql}</prop>
+        <prop key= "hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop> 
+        </props>
+        </property>
+        </bean> -->
+</beans>

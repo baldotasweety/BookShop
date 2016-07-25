@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1" isELIgnored ="false"%>
     
     <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+    <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -16,6 +17,10 @@
   
   <style>
    
+   .modal {
+ 
+  padding: 0!important;
+}
   .carousel-inner > .item > img,
   .carousel-inner > .item > a > img {
       width: 30%;
@@ -67,30 +72,28 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href="Landing">Home</a></li>
-        <li><a href="#">Products</a></li>
+        <li><a href="${pageContext.request.contextPath}/ProDemo">Products</a></li>
        
-        <li><a href="#">Contact</a></li>
+        <li><a href="${pageContext.request.contextPath}/Aboutus">AboutUs</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
        <li><a href="#" data-toggle="modal" data-target="#login"> Login </a></li>
-        <li><a href="displayCart"><!-- <span class="glyphicon glyphicon-shopping-cart"></span> -->Cart</a></li>
+        <!-- <li><a href="displayCart"><span class="glyphicon glyphicon-shopping-cart"></span>Cart</a></li> -->
       </ul>
     </div>
   </div>
 </nav>
 
+
 <div class="container">
-<c:set var="size" scope="page" value="${fn:length(productList)}"></c:set>
-<c:forEach begin="0" step="3" end="${size}" varStatus="count" var="product">
   <div class="row">
     <div class="col-sm-4">
       <div class="panel panel-primary">
-        <div class="panel-heading">>${productList[count.index].name}<br> ${productList[count.index].price}</div>
-        <div class="panel-body"><img src="resources/nov.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer"><a href="user/addToCart/${productList[count.index].pId}/${productList[count.index].category_FK.ct_id}" class="btn btn-sm btn-hover btn-info cartButton">Add to Cart</a></div>
+        <div class="panel-heading">Novels</div>
+        <div class="panel-body"><a href="Novels"><img src="resources/nov.jpg" class="img-responsive" style="width:100%" alt="Image"></a></div>
+        <div class="panel-footer">Novelsss..</div>
       </div>
     </div>
-    </c:forEach>
     <div class="col-sm-4">
       <div class="panel panel-danger">
         <div class="panel-heading">Mystery</div>
@@ -99,7 +102,7 @@
       </div>
     </div>
     <div class="col-sm-4">
-      <div class="panel panel-primary">
+      <div class="panel panel-success">
         <div class="panel-heading">Educational</div>
         <div class="panel-body"><img src="resources/edu.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
         <div class="panel-footer">All types of educational books</div>
@@ -118,7 +121,7 @@
       </div>
     </div>
     <div class="col-sm-4">
-      <div class="panel panel-danger">
+      <div class="panel panel-primary">
         <div class="panel-heading">TragicComedy</div>
         <div class="panel-body"><img src="resources/tracom.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
         <div class="panel-footer">Tragic comedies are fun</div>
@@ -127,12 +130,12 @@
     <div class="col-sm-4">
       <div class="panel panel-primary">
         <div class="panel-heading">Comedy</div>
-        <div class="panel-body"><img src="resources/Funny.jpg" class="img-responsive" style="width:50%" alt="Image"></div>
+        <div class="panel-body"><img src="resources/Funny.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
         <div class="panel-footer">Laughing out loud..LOL!!</div>
       </div>
     </div>
   </div>
-</div><br><br> 
+</div><br><br>
 
 <!-- <footer class="container-fluid text-center">
   <p>Online Store Copyright</p>
@@ -199,7 +202,9 @@ ${sessionScope['SPRING_SECURITY_LAST_EXCEPTION'].message} <br>
 </div><!-- modal -->
 
 
-
+<footer class="container-fluid text-center">
+  <p>Copyright@BookAddicts</p>
+</footer>
 
 <!-- Modal Signup-->
 <div id="signup" class="modal fade" role="dialog">
@@ -214,30 +219,26 @@ ${sessionScope['SPRING_SECURITY_LAST_EXCEPTION'].message} <br>
 		<div class="modal-body">
 		${errorMessage}<br>
 				
-				<img src="resources/KidReadingBook.png"  style="float:right;width:150px;height:150px;">
+				<!-- <img src="resources/KidReadingBook.png"  style="float:right;width:150px;height:150px;"> -->
 
 
 <table cellpadding="20px">
 <tr>
 <td>Name:</td> 
-<td><input type=text  name="username"></td>
+<td><input type="text"  name="username" required="true" title="Name is mandatory"/> </td>
 </tr>
 
 <tr>
 <td>Enter emailId:</td>
-<td><input type="text" name="email"></td>
+<td><input type="text" name="email" required="true" title="Fill the email"></td>
 </tr>
 <tr>
 <td>City: </td>
-<td><input type="text" name="city"></td>
+<td><input type="text" name="city" required="true" title="Enter the city"></td>
 </tr>
 <tr>
 <td>EnterPassword:</td>
-<td><input type="password" name="pass"></td>
-</tr>
-<tr>
-<td>ConfirmPassword:</td>
-<td><input type="password" name="pas2"></td>
+<td><input type="password" name="pass" required="true" title="id should contains 6 to 7 characters"></td>
 </tr>
 <tr>
 <td colspan="2">

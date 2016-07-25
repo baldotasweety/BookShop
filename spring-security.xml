@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/security"
-	xmlns:beans="http://www.springframework.org/schema/beans" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-	http://www.springframework.org/schema/security
-	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/jdbc
+                        http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+                        http://www.springframework.org/schema/security
+                        http://www.springframework.org/schema/security/spring-security.xsd">
  
    <!--   <http auto-config="true">
         <intercept-url pattern="/welcome*" access="ROLE_USER,ROLE_ADMIN" />
@@ -13,17 +16,18 @@
     </http>-->
     
     
-     <http pattern="/Landing" security="none"/>
+     <http pattern="/Landing*" security="none"/>
      <!--<http pattern="/user/**" security="none"/> -->
      <http>
     	 <intercept-url pattern="/**" access="ROLE_USER,ROLE_ADMIN" />
-    	 <form-login login-page="/Theme"  default-target-url="/welcome" authentication-failure-url="/Theme"
+    	 <form-login login-page="/Landing"  default-target-url="/welcome" authentication-failure-url="/Landing"
     	 authentication-success-handler-ref="authenticationSuccessHandler"/>
-    	 <logout logout-success-url="/logout"/>
+    	 <logout invalidate-session="true" logout-success-url="/j_spring_security_Logout"/>
     </http>
  
  	<beans:bean id="authenticationSuccessHandler"
         class="com.spring.bookcart.controller.UrlAuthenticationSuccessHandler" />
+       
          
     <authentication-manager alias="authenticationManager">
         <authentication-provider>
@@ -37,5 +41,9 @@
             				users-by-username-query="select username, password, 'TRUE' from user where username=?" /> 
         </authentication-provider>
     </authentication-manager>
+    <beans:bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+ 		<beans:property name="cacheSeconds" value="0"/>
+ 	</beans:bean>
+ 	
  
 </beans:beans>

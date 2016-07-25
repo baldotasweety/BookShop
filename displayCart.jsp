@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" isELIgnored="false"%>
 <!DOCTYPE html>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html lang="en">
 <head>
+
+
+
   <title>Cart</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,11 +17,12 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script>
-  	function updateQty(pId, name, sId, sName){
+  	function updateQty(pId, pname, sup_id, name){
   		document.getElementById("updateProductId").value = pId;
   		document.getElementById("updateSupplierId").value = sup_id;
-  		document.getElementById("updateProductName").value = name;
+  		document.getElementById("updateProductName").value = pname;
   		document.getElementById("updateSupplierName").value = name;
+  		alert("hello");
   	}
   </script>
   <style>
@@ -60,8 +65,13 @@
 </head>
 <body>
 
+<%-- <%@include file="success.jsp"%> --%>
 <div class="container">
-<form method="post" action="${action}">
+<h1>Cart Details</h1>
+WELCOME:${pageContext.request.userPrincipal.name}
+<%-- <c:url var="addAction" value="user/addToCart/{pId}/{cId}"></c:url>
+<form:form action="${action}" commandName="cart"> --%>
+<form method = "post" action = "${action}">
 <table class="table table-bordered">
 <thead>
 	<tr>
@@ -79,12 +89,13 @@
 <c:forEach  items="${cartList}" var="cartItem">
 <tr>
 	<td>Image</td>
-	<td>${cartItem.product_FK.name}</td>
+	<td>${cartItem.product_FK.pname}</td>
 	<td>${cartItem.qty}</td>
 	<td>${cartItem.price}</td>
 	<td>${(cartItem.qty)*(cartItem.price)}</td>
-	<td><a href="<c:url value='deleteFromCart/${cartItem.product_FK.pId}/${cartItem.category_FK.ct_id}/${cartItem.supplier_FK.sup_id}'/>"><span class="glyphicon glyphicon-remove"></span></a></td>
-	<td><a href="#" data-toggle="modal" data-target="#updateQty" onclick="updateQty('${cartItem.product_FK.pId}','${cartItem.product_FK.name}','${cartItem.supplier_FK.sup_id},'${cartItem.supplier_FK.name}')"><span class="glyphicon glyphicon-edit"></span></a></td>
+	<td><a href="<c:url value='deleteFromCart/${cartItem.product_FK.id}/${cartItem.category_FK.ct_id}/${cartItem.supplier_FK.sup_id}'/>"><span class="glyphicon glyphicon-remove"></span></a></td>
+	
+	<td><a href="#" data-toggle="modal" data-target="#updateQty" onclick="updateQty('${cartItem.product_FK.id}','${cartItem.product_FK.pname}','${cartItem.product_FK.getSupplier().name}','${cartItem.product_FK.getSupplier().name}','${cartItem.getQty()}')"><span class="glyphicon glyphicon-edit"></span></a></td>
 </tr>
 <c:set var="total" value="${total + ((cartItem.qty)*(cartItem.price))}"></c:set>
 </c:forEach>
@@ -93,12 +104,14 @@
 </table>
 </form>
 <br><br>
-<a href="placeOrder" class="btn btn-primary">Place Order</a>
+<a href="ProDemo" class="btn btn-primary">Continue Shopping</a>
+<a href="purchase.obj" class="btn btn-primary">Place Order</a>
+
 </div>
 <br><br>
 
 <footer class="container-fluid text-center">
-  <p>Online Store Copyright</p>
+  <p>Copyright@BookAddicts</p>
 </footer>
 
 <!-- Update quantity Modal -->
@@ -113,9 +126,9 @@
 	</div>
 	<div class="modal-body">
 	<table style="border-collapse: separate; border-spacing: 8px 10px;">
-	<input id="updateProductId" name="updateProductId" type="number" name="pId"/>
-	<input id="updateSupplierId" name="updateSupplierId" type="number" name="sId"/>
-	<tr><td>Product:</td><td><input id="updateProduct" type="text" readonly/></td></tr>
+	<input id="updateProductId" name="updateProductId" type="text" name="pId"/>
+	<input id="updateSupplierId" name="updateSupplierId" type="text" name="sId"/>
+	<tr><td>Product:</td><td><input id="updateProductName" type="text" readonly/></td></tr>
 	<tr><td>Supplier Name:</td><td><input id="updateSupplierName" type="text" readonly/></td></tr>
 	<tr><td>Product Quantity:</td><td><input type="text" name="qty"></td></tr>
 	</table>
